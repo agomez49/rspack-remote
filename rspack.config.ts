@@ -16,7 +16,7 @@ module.exports = withZephyr()({
   },
 
   devServer: {
-    port: 4001,
+    port: 8080,
     historyApiFallback: true,
     watchFiles: [path.resolve(__dirname, 'src')],
     onListening: function (devServer: any) {
@@ -46,13 +46,13 @@ module.exports = withZephyr()({
         type: 'asset',
       },
       {
-				test: /\.css$/,
-				use: [
-					"style-loader",
-					"css-loader",
-					"postcss-loader"
-				]
-			},
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "postcss-loader"
+        ]
+      },
       {
         test: /\.(jsx?|tsx?)$/,
         use: [
@@ -89,15 +89,15 @@ module.exports = withZephyr()({
   },
   plugins: [
     new rspack.container.ModuleFederationPlugin({
-      name: 'create_mf_app_host',
+      name: 'remoteToast',
       filename: 'remoteEntry.js',
       exposes: {
-        "./Toast": "./src/index.toast.ts",
+        './Toast': './src/Toast.tsx',
       },
       shared: {
         react: { eager: true },
         'react-dom': { eager: true },
-        'react-router-dom': { eager: true },
+        clsx: { singleton: true },
       },
     }),
     new rspack.DefinePlugin({

@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@module-federation/enhanced": "^0.8.9",
+    "clsx": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zephyr-rspack-plugin": "^0.0.50",

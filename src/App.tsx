@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import Toast, { ToastProps } from "./Toast";
 
@@ -41,14 +41,13 @@ const App = () => {
           </button>
           <button 
             onClick={() => showToast("Info: Here's some information.", "info")}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2"
+            className="bg-blue-200 hover:bg-blue-200 text-black px-4 py-2 rounded mr-2"
           >
             Show Info Toast
           </button>
         </div>
       </div>
       
-      {/* Render all toasts */}
       {toasts.map(toast => (
         <Toast
           key={toast.id}
@@ -56,7 +55,6 @@ const App = () => {
           type={toast.type}
           isVisible={true}
           onClose={() => removeToast(toast.id)}
-          duration={5000}
         />
       ))}
     </div>
