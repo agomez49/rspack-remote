@@ -17,9 +17,9 @@ module.exports = withZephyr()({
 
   devServer: {
     port: 8080,
-    historyApiFallback: true,
-    watchFiles: [path.resolve(__dirname, 'src')],
-    onListening: function (devServer: any) {
+    historyApiFallback: true, // Allow SPA routing
+    watchFiles: [path.resolve(__dirname, 'src')], // Watch for changes in the src directory to compile automatically
+    onListening: function (devServer: any) { // Custom function to handle the dev server listening event
       const port = devServer.server.address().port
 
       printCompilationMessage('compiling', port)
@@ -43,19 +43,19 @@ module.exports = withZephyr()({
     rules: [
       {
         test: /\.svg$/,
-        type: 'asset',
+        type: 'asset', // Use asset module for SVG files
       },
       {
         test: /\.css$/,
         use: [
-          "style-loader",
-          "css-loader",
-          "postcss-loader"
+          "style-loader", // Use style-loader to inject CSS into the DOM
+          "css-loader", // Use css-loader to handle CSS imports
+          "postcss-loader" // Use postcss-loader for processing CSS with PostCSS (Tailwind CSS)
         ]
       },
       {
         test: /\.(jsx?|tsx?)$/,
-        use: [
+        use: [ // Use SWC loader for JavaScript and TypeScript files
           {
             loader: 'builtin:swc-loader',
             options: {
@@ -89,12 +89,12 @@ module.exports = withZephyr()({
   },
   plugins: [
     new rspack.container.ModuleFederationPlugin({
-      name: 'remoteToast',
-      filename: 'remoteEntry.js',
-      exposes: {
+      name: 'remoteToast', // Name of the remote module
+      filename: 'remoteEntry.js', // Output file name for the remote module
+      exposes: { // Components to expose to the host application
         './Toast': './src/Toast.tsx',
       },
-      shared: {
+      shared: { // Shared dependencies to avoid duplication
         react: { eager: true },
         'react-dom': { eager: true },
         clsx: { singleton: true },
